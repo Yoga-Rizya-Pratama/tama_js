@@ -16,7 +16,7 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - .:/usr/src/app
+      - .:/app
     environment:
       PORT: 3000
       KEY_TOKEN: 'veryverysecret'
