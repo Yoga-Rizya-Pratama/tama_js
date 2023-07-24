@@ -16,7 +16,7 @@ const schema = {
   },
 };
 
-const parameters = [
+const params = [
   {
     in: "header",
     name: "Authorization",
@@ -28,7 +28,32 @@ const parameters = [
   },
 ];
 
-const response = {
+const paramsId = [
+  {
+    in: "path",
+    name: "id",
+    schema: {
+      type: "string",
+    },
+    required: true,
+    description: "user id",
+  },
+];
+
+const requestBody = {
+  required: true,
+  content: {
+    "application/json": {
+      schema: {
+        type: "object",
+        properties: schema,
+      },
+      required: ["name", "email", "address"],
+    },
+  },
+};
+
+const responsePost = {
   201: {
     description: "user created successfully",
     content: {
@@ -47,26 +72,78 @@ const response = {
   },
 };
 
+const responseGet = {
+  200: {
+    description: "get user successfully",
+    content: {
+      "aplication/json": {
+        schema: {
+          type: "object",
+          properties: schema,
+        },
+      },
+    },
+  },
+};
+
+const responseDelete = {
+  200: {
+    description: "delete user successfully",
+    content: {
+      "aplication/json": {
+        schema: {
+          type: "object",
+          properties: {
+            msg: {
+              type: "string",
+              example: "delete user succesfully",
+            },
+          },
+        },
+      },
+    },
+  },
+};
+
 const userDocs = {
   post: {
     summary: "create new user",
     description: "Endpoint to create new user",
     tags: ["User"],
-    requestBody: {
-      required: true,
-      content: {
-        "application/json": {
-          schema: {
-            type: "object",
-            properties: schema,
-          },
-          required: ["name", "email", "address"],
-        },
-      },
-    },
-    responses: response,
-    parameters: parameters,
+    requestBody: requestBody,
+    responses: responsePost,
+  },
+  get: {
+    summary: "get all user",
+    description: "Endpoint to get all user",
+    tags: ["User"],
+    responses: responseGet,
   },
 };
 
-module.exports = userDocs;
+const userDocsParam = {
+  get: {
+    summary: "get one user",
+    description: "Endpoint to get one user",
+    tags: ["User"],
+    parameters: paramsId,
+    responses: responseGet,
+  },
+  patch: {
+    summary: "update user by id",
+    description: "Endpoint to update user",
+    tags: ["User"],
+    parameters: paramsId,
+    requestBody: requestBody,
+    responses: responsePost,
+  },
+  delete: {
+    summary: "delete user by id",
+    description: "Endpoint to delet user",
+    tags: ["User"],
+    parameters: paramsId,
+    responses: responseDelete,
+  },
+};
+
+module.exports = { userDocs, userDocsParam };

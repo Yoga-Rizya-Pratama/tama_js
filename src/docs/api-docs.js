@@ -1,4 +1,4 @@
-const userDocs = require(".//user.docs");
+const { userDocs, userDocsParam } = require("./user.docs");
 
 const docs = {
   openapi: "3.0.0",
@@ -20,6 +20,16 @@ const docs = {
   ],
   paths: {
     "/user": userDocs,
+    "/user/{id}": userDocsParam,
+  },
+  components: {
+    securitySchemes: {
+      bearerAuth: {
+        type: "http",
+        scheme: "bearer",
+        bearerFormat: "JWT",
+      },
+    },
   },
 };
 
