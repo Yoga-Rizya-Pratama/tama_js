@@ -6,7 +6,7 @@ const usersRouter = require("./example/users.route");
 const mainRouter = express.Router();
 
 mainRouter.use(apiRouter);
-// You can write mainRouter.use('/your-path', router)
+// You can write mainRouter.use(router)
 mainRouter.use(usersRouter);
 
 module.exports = mainRouter;
