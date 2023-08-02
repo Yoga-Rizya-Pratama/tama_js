@@ -1,4 +1,4 @@
-const { userDocs, userDocsParam } = require("./user.docs");
+const { userDocs, userDocsParam } = require("./example/user.docs");
 
 const docs = {
   openapi: "3.0.0",

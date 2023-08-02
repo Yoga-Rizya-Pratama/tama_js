@@ -41,5 +41,7 @@ app.use(errorHandler);
 const port = process.env.PORT || 3000;
 
 module.exports = server = app.listen(port, () => {
-  console.log(`api is running on port ${port} you are good to go!!!`);
+  console.log(
+    `api is running on port http://localhost:${port} you are good to go!!!`
+  );
 });

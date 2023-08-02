@@ -1,9 +1,9 @@
 const express = require("express");
-const userModel = require("../models/user.model");
+const userModel = require("../../models/example/user.model");
 
 const router = express.Router();
 
-router.get("/", async (req, res, next) => {
+router.get("/users", async (req, res, next) => {
   try {
     const data = await userModel.find();
     res.status(200).json({
@@ -14,7 +14,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/:id", async (req, res, next) => {
+router.get("/users/:id", async (req, res, next) => {
   const id = req.params.id;
 
   try {
@@ -29,7 +29,7 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/users", async (req, res, next) => {
   const newUser = new userModel(req.body);
 
   try {
@@ -42,7 +42,7 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-router.patch("/:id", async (req, res, next) => {
+router.patch("/users/:id", async (req, res, next) => {
   const id = req.params.id;
 
   try {
@@ -58,7 +58,7 @@ router.patch("/:id", async (req, res, next) => {
   }
 });
 
-router.delete("/:id", async (req, res, next) => {
+router.delete("/users/:id", async (req, res, next) => {
   const id = req.params.id;
 
   try {
