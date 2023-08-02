@@ -1,16 +1,27 @@
 const express = require("express");
 const userModel = require("../../models/example/user.model");
+const client = require("../../utils/redis.util");
 
 const router = express.Router();
 
 router.get("/users", async (req, res, next) => {
-  try {
-    const data = await userModel.find();
-    res.status(200).json({
-      data,
+  const cache = await client.GET("data");
+
+  if (cache !== null) {
+    return res.status(200).json({
+      msg: "from redis cache",
+      data: JSON.parse(cache),
     });
-  } catch (error) {
-    next(error);
+  } else {
+    try {
+      const data = await userModel.find();
+      await client.SETEX("data", 3600, JSON.stringify(data));
+      res.status(200).json({
+        data,
+      });
+    } catch (error) {
+      next(error);
+    }
   }
 });
 
